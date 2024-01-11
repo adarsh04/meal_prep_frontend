@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { GetRecipeDTO, getRecipe } from "../../utils/recipes.tsx"
+
+import Cookies from 'universal-cookie';
 import { useParams } from "react-router-dom";
+
+const cookies = new Cookies();
 
 const ViewRecipe: React.FunctionComponent<{}> = () => {
 
@@ -35,6 +39,8 @@ const ViewRecipe: React.FunctionComponent<{}> = () => {
                     </ul>
                 </div>
             }
+            {recipe && cookies.get('access_token') && <a href={`/recipe/edit/${id}`}>Edit</a>}
+             
         </div>
     )
 

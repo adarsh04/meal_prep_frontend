@@ -5,6 +5,7 @@ import React from "react";
 import ViewRecipe from "./pages/recipe/view.tsx";
 import Login from "./pages/login/index.tsx";
 import Register from "./pages/register/index.tsx";
+import EditRecipe from "./pages/recipe/edit.tsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="create" element={<CreateRecipe />} />
           <Route path="recipe/:id" element={<ViewRecipe />} />
+          <Route path="recipe/edit/:id" element={<EditRecipe />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>

@@ -7,7 +7,7 @@ interface UserDTO {
 
 const loginUser = async (user: UserDTO) : Promise<string> => {
     console.log('loginUser');
-    const { data } = await axios.post('/auth/login', user);
+    const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, user);
     const { access_token } = data;
     console.log(access_token);
     return access_token;
@@ -15,7 +15,7 @@ const loginUser = async (user: UserDTO) : Promise<string> => {
 
 const registerUser = async (newUser: UserDTO): Promise<UserDTO> => {
     console.log('registerUser');
-    const { data } = await axios.post('/auth/register', newUser);
+    const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, newUser);
     console.log('got here');
     console.log(data);
     const { access_token } = data;

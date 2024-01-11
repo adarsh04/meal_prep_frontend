@@ -17,13 +17,14 @@ interface GetRecipeDTO {
 }
 
 const getRecipes = async () : Promise<GetRecipeDTO[]> => {
-    const { data } = await axios.get('/api/v1/recipes');
+    console.log(`backend URL: ${process.env.REACT_APP_BACKEND_URL}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recipes`);
     const { recipes } = data;
     return recipes;
 }
 
 const getRecipe = async (id: string) : Promise<GetRecipeDTO> => {
-    const { data } = await axios.get(`/api/v1/recipe/${id}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recipe/${id}`);
     const { recipe } = data;
     return recipe;
 }
@@ -33,10 +34,20 @@ const createRecipe = async (recipe: CreateRecipeDTO) : Promise<GetRecipeDTO> => 
         'Authorization' : `Bearer ${cookies.get('access_token')}`
     }
 
-    const { data } = await axios.post('/api/v1/recipe/add',recipe, { headers });
+    const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recipe/add`,recipe, { headers });
     const { newRecipe } = data;
     return newRecipe;
 }
 
+const editRecipe = async (recipe: GetRecipeDTO) : Promise<GetRecipeDTO> => {
+    const headers = {
+        'Authorization' : `Bearer ${cookies.get('access_token')}`
+    }
 
-export { getRecipes, getRecipe, createRecipe, GetRecipeDTO, CreateRecipeDTO }
+    const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recipe/edit`,recipe, { headers });
+    const { editRecipe } = data;
+    return editRecipe;
+}
+
+
+export { getRecipes, getRecipe, createRecipe, editRecipe, GetRecipeDTO, CreateRecipeDTO }
