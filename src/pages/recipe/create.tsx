@@ -9,7 +9,8 @@ const cookies = new Cookies();
 const defaultRecipe: CreateRecipeDTO = {
     title: '',
     ingredients: [],
-    method: []
+    method: [],
+    file: new File([], ''),
 }
 
 const CreateRecipe: React.FunctionComponent<{}> = () => {
@@ -33,6 +34,12 @@ const CreateRecipe: React.FunctionComponent<{}> = () => {
         console.log(recipe);
     }
 
+    const handleFileUpload = function(event: React.ChangeEvent<HTMLInputElement>) {
+        const file = event.target.files ? event.target.files[0] : new File([], '');
+        console.log("file: ", file);
+        setRecipe({...recipe, file})
+    }
+
     const handleSubmit = async function(event){
         event.preventDefault();
         const newRecipe = await createRecipe(recipe);
@@ -50,6 +57,7 @@ const CreateRecipe: React.FunctionComponent<{}> = () => {
                         <label>Title: <input type="text" onChange={handleTitleChange}></input> </label>
                         <label>Ingredients: <textarea onChange={handleIngredientsChange}></textarea></label>
                         <label>Method: <textarea onChange={handleMethodChange}></textarea></label>
+                        <label>File: <input type="file" name="filename" onChange={handleFileUpload} /></label>
                         <input type="submit" value="Submit" />
                     </form>
                 </div>

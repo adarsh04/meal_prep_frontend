@@ -7,6 +7,7 @@ interface CreateRecipeDTO {
     title: string;
     ingredients: string[];
     method: string[];
+    file: File;
 }
 
 interface GetRecipeDTO {
@@ -31,8 +32,12 @@ const getRecipe = async (id: string) : Promise<GetRecipeDTO> => {
 
 const createRecipe = async (recipe: CreateRecipeDTO) : Promise<GetRecipeDTO> => {
     const headers = {
-        'Authorization' : `Bearer ${cookies.get('access_token')}`
+        'Authorization' : `Bearer ${cookies.get('access_token')}`,
+        'Content-Type': 'multipart/form-data'
     }
+    console.log("got here");
+    console.log(headers);
+    console.log(recipe);
 
     const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/recipe/add`,recipe, { headers });
     const { newRecipe } = data;
